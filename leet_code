@@ -1,0 +1,26 @@
+# Leet Code Sliding Window Qno. 1838
+...>
+class Solution {
+public:
+int maxFrequency(vector<int>& nums, int k) {
+    sort(nums.begin(),nums.end(),greater<int>()); // reverse order
+    int left =0;
+    int right =0;
+    int maxLen=0;
+    int sum=0;
+    while(right!=nums.size()){
+        sum+=nums[left]-nums[right];
+  //          cout << sum << endl;
+        while(sum>k ){
+		 //in ex  k=5,  sum=(13 - 8)+ (13 -4)>5, then we move the left pointer by 1, sum= (8-8)+(8-4) so sum- = (13-8)*2
+            sum-=(right-left)*(nums[left]-nums[left+1]);
+       
+            left++;
+        }
+ //          cout << right << " " <<left << endl;
+        maxLen=max(maxLen,right-left+1);
+        right++;
+    }
+    return maxLen;
+}
+};
